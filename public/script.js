@@ -1,4 +1,3 @@
-// script.js
 const socket = io();
 
 const canvas = document.getElementById('canvas');
@@ -11,6 +10,8 @@ let drawing = false;
 
 canvas.addEventListener('mousedown', () => {
   drawing = true;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
 });
 
 canvas.addEventListener('mouseup', () => {
@@ -40,9 +41,4 @@ canvas.addEventListener('mousemove', (event) => {
 socket.on('draw', (data) => {
   ctx.lineTo(data.x, data.y);
   ctx.stroke();
-});
-
-// Listen for clearing canvas event from the server
-socket.on('clearCanvas', () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
